@@ -1182,7 +1182,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="ipv-vW-OQU" firstAttribute="centerX" secondItem="qbI-He-cT1" secondAttribute="centerX" id="Uuy-4a-ArG"/>
                                                                     <constraint firstItem="ipv-vW-OQU" firstAttribute="width" secondItem="qbI-He-cT1" secondAttribute="width" id="YKK-0c-aNO"/>
@@ -2398,7 +2398,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.83375297875411669" green="0.92119683159999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="bk2-pD-xkw" firstAttribute="height" secondItem="mF8-Kh-DJ8" secondAttribute="height" id="Bmn-Uc-6lT"/>
                                                                     <constraint firstItem="bk2-pD-xkw" firstAttribute="centerY" secondItem="mF8-Kh-DJ8" secondAttribute="centerY" id="E40-7q-CSJ"/>
@@ -2617,6 +2617,7 @@
                                                                                             <constraint firstItem="a2O-eC-qsR" firstAttribute="centerX" secondItem="j0o-jh-8wo" secondAttribute="centerX" id="kF2-Wo-P12"/>
                                                                                         </constraints>
                                                                                         <connections>
+                                                                                            <outlet property="dayButton" destination="j3k-yj-IfT" id="zkc-zE-2Vp"/>
                                                                                             <outlet property="dayLabel" destination="a2O-eC-qsR" id="U4U-6J-cWy"/>
                                                                                         </connections>
                                                                                     </view>
@@ -3613,7 +3614,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="SOC-1r-egd" firstAttribute="width" secondItem="vGB-eo-PDV" secondAttribute="width" id="GLQ-oh-YNt"/>
                                                                     <constraint firstItem="SOC-1r-egd" firstAttribute="centerX" secondItem="vGB-eo-PDV" secondAttribute="centerX" id="r5C-J1-hiv"/>

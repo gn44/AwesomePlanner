@@ -55,6 +55,8 @@ class APCalendarView: UIView {
     
     
     var aPCalenderDayViews: [APCalendarDayView]!
+    var aPCalendarMonth:APCalendarMonth!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -101,15 +103,26 @@ class APCalendarView: UIView {
                               apCalendarDayView40,
                               apCalendarDayView41,
                               apCalendarDayView42,]
+        
+        for aPCalendarDayView in aPCalenderDayViews {
+            aPCalendarDayView.delegate = self
+        }
     }
     
     
     func updateCalendarViewWithMonth(apMonth:APCalendarMonth) -> Void {
         
+        self.aPCalendarMonth = apMonth
+        
+        // set first of the month
+        var components = apMonth.components
+        components?.day = 0
+        
         // color last months days is gray and set their numbers
         for i:Int in 0...apMonth.startWeekDay - 1
         {
             let apCalendarView = aPCalenderDayViews[i]
+            apCalendarView.dayStatus = .previous
             apCalendarView.dayLabel.textColor = UIColor.lightGray
             apCalendarView.dayLabel.text = String(apMonth.lastMonthDayCount - apMonth.startWeekDay + i + 2)
         }
@@ -119,9 +132,12 @@ class APCalendarView: UIView {
         for i:Int in apMonth.startWeekDay - 1...apMonth.dayCount + apMonth.startWeekDay - 2
         {
             let apCalendarView = aPCalenderDayViews[i]
+            apCalendarView.dayStatus = .current
             apCalendarView.dayLabel.textColor = UIColor.black
             apCalendarView.dayLabel.text = String(dayNumber)
             dayNumber += 1
+            components!.day = components!.day! + 1
+            apCalendarView.currentDateComponents = components
         }
         
         // fill the rest with the next month
@@ -129,10 +145,33 @@ class APCalendarView: UIView {
         for i:Int in apMonth.dayCount + apMonth.startWeekDay - 1...aPCalenderDayViews.count - 1
         {
             let apCalendarView = aPCalenderDayViews[i]
+            apCalendarView.dayStatus = .next
             apCalendarView.dayLabel.textColor = UIColor.lightGray
             apCalendarView.dayLabel.text = String(nextMonthDayNumber)
             nextMonthDayNumber += 1
         }
+        
+        if aPCalendarMonth.selectedDate != nil {
+            
+            let selectedDay = aPCalendarMonth.selectedDate.day! - 1
+            
+            // find index matching the selected day
+            let apCalendarView = aPCalenderDayViews[selectedDay + apMonth.startWeekDay - 1]
+            apCalendarView.makeSelected()
+            
+        }
     }
+}
 
+extension APCalendarView:APCalendarDayViewDelegate
+{
+    func dayButtonTapped(dayView: APCalendarDayView) {
+        
+        // assign selected date to model
+        // next time the model is used, set the selected date
+        self.aPCalendarMonth.selectedDate = dayView.currentDateComponents
+        
+        NotificationCenter.default.post(name: kSelectedDateChanged, object: self, userInfo: [kCalendarViewKey:dayView,kCalendarMonthViewKey:self.aPCalendarMonth])
+    }
+    
 }

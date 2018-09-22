@@ -10,6 +10,7 @@ import UIKit
 
 class APCalendarMonth: NSObject {
 
+    public var selectedDate:DateComponents!
     init(components:DateComponents)
     {
         super.init()

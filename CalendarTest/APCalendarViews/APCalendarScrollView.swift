@@ -31,10 +31,14 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     
     weak var calenderScrollViewDelegate: APCalendarScrollViewDelegate?
     
-    var aPMonthCache = [Int: APCalendarMonth]()
+    let aPCalendarMonthCache:APCalendarMonthCache = APCalendarMonthCache.init()
     
     
     public var currentCenteredDateComponents:DateComponents!
+    
+    
+    private var currentSelectedDayView:APCalendarDayView!
+    private var currentSelectedAPMonth:APCalendarMonth!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,6 +49,12 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
         super.didMoveToSuperview()
         superView = self.superview
         self.delegate = self
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(selectedDateChanged),
+            name: kSelectedDateChanged,
+            object: nil)
     }
     
     
@@ -71,18 +81,25 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     
     func updateCalendarMonths(left:APCalendarView,center:APCalendarView,right:APCalendarView) -> Void {
         
-        var componenents = self.currentCenteredDateComponents
-        let currentMonth = APCalendarMonth.init(components: componenents!)
+        if currentSelectedDayView != nil {
+            currentSelectedDayView.removeSelection()
+        }
+        
+        var components = self.currentCenteredDateComponents!
+        let currentMonth = self.aPCalendarMonthCache.cachedOrNewMonthWithComponents(components: components)
         center.updateCalendarViewWithMonth(apMonth: currentMonth)
         
-        componenents!.month = componenents!.month! - 1
-        let previousMonth = APCalendarMonth.init(components: componenents!)
+        components.month = components.month! - 1
+        let previousMonth = self.aPCalendarMonthCache.cachedOrNewMonthWithComponents(components: components)
         left.updateCalendarViewWithMonth(apMonth: previousMonth)
         
-        componenents!.month = componenents!.month! + 2
-        let nextMonth = APCalendarMonth.init(components: componenents!)
+        components.month = components.month! + 2
+        
+        let nextMonth = self.aPCalendarMonthCache.cachedOrNewMonthWithComponents(components: components)
+        
         right.updateCalendarViewWithMonth(apMonth: nextMonth)
     }
+
     
     //MARK: Scrollview handling
     func updatePositionsWithScrollView(scrollView:UIScrollView) -> Void {
@@ -168,5 +185,28 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
         self.updatePositionsWithScrollView(scrollView: scrollView)
     }
     
+    
+    // MARK notifications
+    
+    @objc func selectedDateChanged(note:Notification) -> Void {
+        
+        let selectedApCalendarDayView:APCalendarDayView = note.userInfo![kCalendarViewKey] as! APCalendarDayView
+        
+        let selectedAPMonth:APCalendarMonth = note.userInfo![kCalendarMonthViewKey] as! APCalendarMonth
+        
+        if currentSelectedDayView != nil {
+            currentSelectedDayView.removeSelection()
+            currentSelectedDayView = nil
+        }
+        
+        if currentSelectedAPMonth != nil {
+            currentSelectedAPMonth.selectedDate = nil
+            currentSelectedAPMonth = nil
+        }
+        
+        currentSelectedDayView = selectedApCalendarDayView
+        currentSelectedAPMonth = selectedAPMonth
+        
+    }
     
 }
