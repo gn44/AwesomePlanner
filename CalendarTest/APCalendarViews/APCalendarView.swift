@@ -57,6 +57,9 @@ class APCalendarView: UIView {
     var aPCalenderDayViews: [APCalendarDayView]!
     var aPCalendarMonth:APCalendarMonth!
     
+    var aPCalendarSelectedView:APCalendarDayView!
+    
+    var longPressedDays = Set<APCalendarDayView>()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -107,6 +110,10 @@ class APCalendarView: UIView {
         for aPCalendarDayView in aPCalenderDayViews {
             aPCalendarDayView.delegate = self
         }
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPressed))
+        longPressRecognizer.minimumPressDuration = 0.1
+        self.addGestureRecognizer(longPressRecognizer)
     }
     
     
@@ -138,6 +145,7 @@ class APCalendarView: UIView {
             dayNumber += 1
             components!.day = components!.day! + 1
             apCalendarView.currentDateComponents = components
+            self.removeSelectionIfNeeded(apCalendarDayView: apCalendarView)
         }
         
         // fill the rest with the next month
@@ -157,9 +165,42 @@ class APCalendarView: UIView {
             
             // find index matching the selected day
             let apCalendarView = aPCalenderDayViews[selectedDay + apMonth.startWeekDay - 1]
-            apCalendarView.makeSelected()
+            apCalendarView.makeSelected(animated: false)
             
         }
+    }
+    
+    func removeSelectionIfNeeded(apCalendarDayView:APCalendarDayView) -> Void {
+        if apCalendarDayView.isSelected {
+            apCalendarDayView.removeSelection(animated: false)
+        }
+    }
+    
+    
+    //MARK: Long press and drag
+    @objc func longPressed(sender: UILongPressGestureRecognizer)
+    {
+        if sender.state == .began || sender.state == .changed {
+            let point:CGPoint = sender.location(in: self)
+            let selectedDayView:APCalendarDayView = self.dayViewAtPosition(point: point)
+            selectedDayView.makeSelected(animated: true)
+            if !self.longPressedDays.contains(selectedDayView) {
+                
+                self.longPressedDays.insert(selectedDayView)
+            }
+        }
+    }
+    
+    func dayViewAtPosition(point:CGPoint) -> APCalendarDayView {
+        let dayWidth = apCalendarDayView1.frame.width
+        let dayHeight = apCalendarDayView1.frame.height
+        
+        let verticalIndex:Int = Int(point.y / dayHeight)
+        let horizontalIndex:Int = Int(point.x / dayWidth)
+        
+        let index:Int = Int(verticalIndex * 7 + horizontalIndex)
+        
+        return aPCalenderDayViews[index]
     }
 }
 
@@ -171,7 +212,13 @@ extension APCalendarView:APCalendarDayViewDelegate
         // next time the model is used, set the selected date
         self.aPCalendarMonth.selectedDate = dayView.currentDateComponents
         
-        NotificationCenter.default.post(name: kSelectedDateChanged, object: self, userInfo: [kCalendarViewKey:dayView,kCalendarMonthViewKey:self.aPCalendarMonth])
+        if self.aPCalendarSelectedView != nil {
+            self.aPCalendarSelectedView.removeSelection(animated: true)
+        }
+        
+        self.aPCalendarSelectedView = dayView
+        
+        NotificationCenter.default.post(name: kSelectedDateChanged, object: self, userInfo: [kCalendarMonthViewKey:self.aPCalendarMonth])
     }
     
 }

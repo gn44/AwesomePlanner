@@ -28,12 +28,13 @@ class APCalendarDayView: UIView {
     
     var currentDateComponents:DateComponents!
     
-    var isSelected:Bool! = false
+    public var isSelected:Bool! = false
 
     
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dayButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,13 +44,17 @@ class APCalendarDayView: UIView {
     
     @objc func dayButtonTap(){
         
+        guard isSelected != true else {
+            return
+        }
+        
         delegate?.dayButtonTapped(dayView: self)
         if dayStatus == .current {
-            self.makeSelected()
+            self.makeSelected(animated: true)
         }
     }
     
-    func makeSelected() -> Void {
+    func makeSelected(animated:Bool) -> Void {
         
         guard isSelected == false else {
             return
@@ -61,14 +66,16 @@ class APCalendarDayView: UIView {
         self.dayLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
         self.backgroundColor = UIColor.lightGray
-        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
-            self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.layer.cornerRadius = 10
-            self.clipsToBounds = true
-        });
+        if animated {
+            UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                self.addDaySelection()
+            });
+        } else {
+            self.addDaySelection()
+        }
     }
     
-    func removeSelection() -> Void {
+    func removeSelection(animated:Bool) -> Void {
         
         guard isSelected == true else {
             return
@@ -80,11 +87,25 @@ class APCalendarDayView: UIView {
         
         self.backgroundColor = UIColor.white
         
-        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
-            self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.layer.cornerRadius = 0
-            self.clipsToBounds = false
-        });
+        if !animated {
+            self.removeDaySelection()
+        } else {
+            UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                self.removeDaySelection()
+            });
+        }
+    }
+    
+    func removeDaySelection() -> Void {
+        self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        self.layer.cornerRadius = 0
+        self.clipsToBounds = false
+    }
+    
+    func addDaySelection() -> Void {
+        self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
     }
     
     override var description: String {

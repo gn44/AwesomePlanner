@@ -37,7 +37,6 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     public var currentCenteredDateComponents:DateComponents!
     
     
-    private var currentSelectedDayView:APCalendarDayView!
     private var currentSelectedAPMonth:APCalendarMonth!
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,10 +79,6 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     // MARK: APCalendarMonth updating
     
     func updateCalendarMonths(left:APCalendarView,center:APCalendarView,right:APCalendarView) -> Void {
-        
-        if currentSelectedDayView != nil {
-            currentSelectedDayView.removeSelection()
-        }
         
         var components = self.currentCenteredDateComponents!
         let currentMonth = self.aPCalendarMonthCache.cachedOrNewMonthWithComponents(components: components)
@@ -190,22 +185,13 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     
     @objc func selectedDateChanged(note:Notification) -> Void {
         
-        let selectedApCalendarDayView:APCalendarDayView = note.userInfo![kCalendarViewKey] as! APCalendarDayView
+        let selectedApCalendarMonth:APCalendarMonth = note.userInfo![kCalendarMonthViewKey] as! APCalendarMonth
         
-        let selectedAPMonth:APCalendarMonth = note.userInfo![kCalendarMonthViewKey] as! APCalendarMonth
-        
-        if currentSelectedDayView != nil {
-            currentSelectedDayView.removeSelection()
-            currentSelectedDayView = nil
-        }
-        
-        if currentSelectedAPMonth != nil {
+        if currentSelectedAPMonth != nil && currentSelectedAPMonth != selectedApCalendarMonth {
             currentSelectedAPMonth.selectedDate = nil
             currentSelectedAPMonth = nil
+            currentSelectedAPMonth = selectedApCalendarMonth
         }
-        
-        currentSelectedDayView = selectedApCalendarDayView
-        currentSelectedAPMonth = selectedAPMonth
         
     }
     
