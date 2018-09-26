@@ -59,7 +59,13 @@ class APCalendarView: UIView {
     
     var aPCalendarSelectedView:APCalendarDayView!
     
+    
+    // long press handling of selection
     var longPressedDays = Set<APCalendarDayView>()
+    var longPressFirstDayView:APCalendarDayView!
+    var previousLongPressEndIndex:Int = 0
+    var previousLongPressStartIndex:Int = 0
+    let longPressGestureRecognizer:UILongPressGestureRecognizer = UILongPressGestureRecognizer()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -111,9 +117,9 @@ class APCalendarView: UIView {
             aPCalendarDayView.delegate = self
         }
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action:#selector(longPressed))
-        longPressRecognizer.minimumPressDuration = 0.1
-        self.addGestureRecognizer(longPressRecognizer)
+        self.longPressGestureRecognizer.minimumPressDuration = 0.1
+        self.longPressGestureRecognizer.addTarget(self, action: #selector(longPressed))
+        self.addGestureRecognizer(self.longPressGestureRecognizer)
     }
     
     
@@ -182,16 +188,114 @@ class APCalendarView: UIView {
     {
         if sender.state == .began || sender.state == .changed {
             let point:CGPoint = sender.location(in: self)
-            let selectedDayView:APCalendarDayView = self.dayViewAtPosition(point: point)
-            selectedDayView.makeSelected(animated: true)
-            if !self.longPressedDays.contains(selectedDayView) {
-                
-                self.longPressedDays.insert(selectedDayView)
+            
+
+            guard let selectedDayView = self.dayViewAtPosition(point: point) else
+            {
+                return
             }
+            
+            if sender.state == .began {
+                guard selectedDayView.dayStatus == .current else {
+                    return
+                }
+                self.longPressFirstDayView = selectedDayView
+                selectedDayView.addToMultiSelection()
+            } else if sender.state == .changed {
+                
+                if self.longPressFirstDayView == nil {
+                    self.longPressFirstDayView = selectedDayView
+                }
+                
+                if self.longPressFirstDayView != selectedDayView {
+                    
+                    self.longPressSelectionChangedWithEndingDayView(apCalendarDayView: selectedDayView)
+                }
+            }
+            
+        } else {
+            self.clearLongPressSelection()
         }
     }
     
-    func dayViewAtPosition(point:CGPoint) -> APCalendarDayView {
+    func longPressSelectionChangedWithEndingDayView(apCalendarDayView:APCalendarDayView) -> Void {
+        
+        guard apCalendarDayView.dayStatus == .current else
+        {
+            self.clearLongPressSelection()
+            return
+        }
+        
+        let displayedDate = apCalendarDayView.currentDateComponents.day!
+        
+        let startIndex:Int = self.longPressFirstDayView.currentDateComponents.day! + self.aPCalendarMonth.startWeekDay - 1
+        let endIndex:Int = displayedDate + self.aPCalendarMonth.startWeekDay - 1
+        
+        // fill all indexes from largest to smallest
+        let largestIndex = max(endIndex, startIndex) - 1
+        let smallestIndex = min(endIndex, startIndex) - 1
+        
+        self.previousLongPressStartIndex = startIndex
+        
+        guard self.previousLongPressEndIndex != largestIndex  else {
+            return
+        }
+        
+        guard self.previousLongPressStartIndex != endIndex  else {
+            return
+        }
+        
+        if largestIndex < self.previousLongPressStartIndex {
+            self.clearLongPressSelection()
+            
+            self.longPressGestureRecognizer.isEnabled = false
+            self.longPressGestureRecognizer.isEnabled = true
+            return
+        }
+        
+        // if previous index is smaller it means we have added days to selection
+        if self.previousLongPressEndIndex < largestIndex {
+            for i:Int in smallestIndex...largestIndex
+            {
+                let calendarDayView:APCalendarDayView = aPCalenderDayViews[i]
+                calendarDayView.addToMultiSelection()
+            }
+        } else
+        {
+            // if previous index is larger we have removed from selection
+            for i:Int in largestIndex + 1...self.previousLongPressEndIndex
+            {
+                let calendarDayView:APCalendarDayView = aPCalenderDayViews[i]
+                calendarDayView.removeFromMultiSelection()
+            }
+        }
+        self.previousLongPressEndIndex = largestIndex
+        
+    }
+    
+    func clearLongPressSelection() -> Void {
+        
+        guard self.longPressFirstDayView != nil else {
+            return
+        }
+        if self.previousLongPressStartIndex == 0 && self.previousLongPressEndIndex == 0 {
+            NSLog("no movement was made after long pressing, remove longPressFirstDayView from selection", "")
+            self.longPressFirstDayView.removeFromMultiSelection()
+        } else {
+        
+            for i:Int in self.previousLongPressStartIndex - 1...self.previousLongPressEndIndex
+            {
+                let calendarDayView:APCalendarDayView = aPCalenderDayViews[i]
+                calendarDayView.removeFromMultiSelection()
+            }
+        }
+        
+        self.previousLongPressStartIndex = 0
+        self.previousLongPressEndIndex = 0
+        self.longPressFirstDayView = nil
+    }
+    
+    func dayViewAtPosition(point:CGPoint) -> APCalendarDayView? {
         let dayWidth = apCalendarDayView1.frame.width
         let dayHeight = apCalendarDayView1.frame.height
         
@@ -200,7 +304,17 @@ class APCalendarView: UIView {
         
         let index:Int = Int(verticalIndex * 7 + horizontalIndex)
         
-        return aPCalenderDayViews[index]
+        let closestCalendarDayView = aPCalenderDayViews[index]
+        
+        let selfFrame = closestCalendarDayView.convert(closestCalendarDayView.frame, to: self)
+        
+        let selfPoint = CGPoint(x: closestCalendarDayView.frame.origin.x, y: selfFrame.origin.y)
+        if point.distance(toPoint: selfPoint) < closestCalendarDayView.frame.size.height {
+            return aPCalenderDayViews[index]
+        } else {
+            return nil
+        }
+        
     }
 }
 
@@ -221,4 +335,11 @@ extension APCalendarView:APCalendarDayViewDelegate
         NotificationCenter.default.post(name: kSelectedDateChanged, object: self, userInfo: [kCalendarMonthViewKey:self.aPCalendarMonth])
     }
     
+}
+
+extension CGPoint {
+    
+    func distance(toPoint p:CGPoint) -> CGFloat {
+        return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2))
+    }
 }
