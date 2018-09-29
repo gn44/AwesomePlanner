@@ -29,6 +29,7 @@ class APCalendarDayView: UIView {
     var currentDateComponents:DateComponents!
     
     public var isSelected:Bool! = false
+    public var isMultiSelected:Bool! = false
 
     
     
@@ -62,10 +63,11 @@ class APCalendarDayView: UIView {
         
         isSelected = true
         
-        self.dayLabel.font = UIFont.boldSystemFont(ofSize: self.dayLabel.font.pointSize * 2)
+        self.dayLabel.font = UIFont.boldSystemFont(ofSize: self.dayLabel.font.pointSize * 1.5)
         self.dayLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        self.dayLabel.textColor = mainTextColor
         
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = mainColor
         if animated {
             UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
                 self.addDaySelection()
@@ -83,7 +85,8 @@ class APCalendarDayView: UIView {
         
         isSelected = false
         self.dayLabel.font = UIFont.systemFont(ofSize: 17)
-        self.dayLabel.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+        self.dayLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        self.dayLabel.textColor = UIColor.black
         
         self.backgroundColor = UIColor.white
         
@@ -114,15 +117,44 @@ class APCalendarDayView: UIView {
     
     
     func addToMultiSelection() -> Void {
-        UIView .animate(withDuration: 0.1) {
-            self.backgroundColor = UIColor.green
+        
+        if isMultiSelected {
+            return
         }
+        isMultiSelected = true
+        self.dayLabel.font = UIFont.systemFont(ofSize: self.dayLabel.font.pointSize * 1.5)
+        self.dayLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        self.dayLabel.textColor = mainTextColor
+        
+
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+            self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.layer.cornerRadius = 10
+            self.clipsToBounds = true
+            self.backgroundColor = mainColor
+        });
         self.startWiggle()
     }
     
     func removeFromMultiSelection() -> Void {
         self.layer.removeAllAnimations()
         self.backgroundColor = UIColor.white
+        
+        guard isMultiSelected == true else {
+            return
+        }
+        
+        isMultiSelected = false
+        self.dayLabel.font = UIFont.systemFont(ofSize: 17)
+        self.dayLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        self.backgroundColor = UIColor.white
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+            self.dayLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.layer.cornerRadius = 0
+            self.clipsToBounds = false
+            self.dayLabel.textColor = UIColor.black
+        });
     }
     
     private func degreesToRadians(_ x: CGFloat) -> CGFloat {

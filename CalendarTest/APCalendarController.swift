@@ -43,7 +43,14 @@ class APCalendarViewController: UIViewController {
         scrollView.calenderScrollViewDelegate = self
         scrollView.centerSecondElement()
         
+        let additionBarButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
         
+        navigationItem.rightBarButtonItem = additionBarButton
+        navigationController?.navigationBar.barTintColor = mainColor
+        navigationController?.navigationBar.tintColor = mainTextColor
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: mainTextColor]
+        navigationController?.navigationBar.isTranslucent = true
         
     }
     
@@ -55,6 +62,11 @@ class APCalendarViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func rightBarButtonTapped() -> Void {
+        self.performSegue(withIdentifier: "addEvent", sender: self)
+        NSLog("ding", "")
     }
 }
 

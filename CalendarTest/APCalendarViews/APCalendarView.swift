@@ -287,7 +287,7 @@ class APCalendarView: UIView {
         guard self.longPressFirstDayView != nil else {
             return
         }
-        if self.previousLongPressStartIndex == 0 && self.previousLongPressEndIndex == 0 {
+        if self.previousLongPressStartIndex == 0 || self.previousLongPressEndIndex == 0 {
             NSLog("no movement was made after long pressing, remove longPressFirstDayView from selection", "")
             self.longPressFirstDayView.removeFromMultiSelection()
         } else {
@@ -318,7 +318,8 @@ class APCalendarView: UIView {
         let selfFrame = closestCalendarDayView.convert(closestCalendarDayView.frame, to: self)
         
         let selfPoint = CGPoint(x: closestCalendarDayView.frame.origin.x, y: selfFrame.origin.y)
-        if point.distance(toPoint: selfPoint) < closestCalendarDayView.frame.size.height {
+        
+        if point.distance(toPoint: selfPoint) / 2 < closestCalendarDayView.frame.size.width {
             return aPCalenderDayViews[index]
         } else {
             return nil
