@@ -48,12 +48,6 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
         super.didMoveToSuperview()
         superView = self.superview
         self.delegate = self
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(selectedDateChanged),
-            name: kSelectedDateChanged,
-            object: nil)
     }
     
     
@@ -178,21 +172,6 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         self.updatePositionsWithScrollView(scrollView: scrollView)
-    }
-    
-    
-    // MARK notifications
-    
-    @objc func selectedDateChanged(note:Notification) -> Void {
-        
-        let selectedApCalendarMonth:APCalendarMonth = note.userInfo![kCalendarMonthViewKey] as! APCalendarMonth
-        
-        if currentSelectedAPMonth != nil && currentSelectedAPMonth != selectedApCalendarMonth {
-            currentSelectedAPMonth.selectedDate = nil
-            currentSelectedAPMonth = nil
-            currentSelectedAPMonth = selectedApCalendarMonth
-        }
-        
     }
     
 }

@@ -12,6 +12,7 @@ class APCalendarViewController: UIViewController {
 
     @IBOutlet weak var scrollView: APCalendarScrollView!
     
+    @IBOutlet weak var seperatorView: UIView!
     let months = [NSLocalizedString("January", comment: ""),
                   NSLocalizedString("February", comment: ""),
                   NSLocalizedString("March", comment: ""),
@@ -51,6 +52,8 @@ class APCalendarViewController: UIViewController {
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: mainTextColor]
         navigationController?.navigationBar.isTranslucent = true
+        
+        seperatorView.backgroundColor = mainColor
         
     }
     

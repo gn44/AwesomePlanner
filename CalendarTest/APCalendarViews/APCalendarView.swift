@@ -164,16 +164,6 @@ class APCalendarView: UIView {
             apCalendarView.dayLabel.text = String(nextMonthDayNumber)
             nextMonthDayNumber += 1
         }
-        
-        if aPCalendarMonth.selectedDate != nil {
-            
-            let selectedDay = aPCalendarMonth.selectedDate.day! - 1
-            
-            // find index matching the selected day
-            let apCalendarView = aPCalenderDayViews[selectedDay + apMonth.startWeekDay - 1]
-            apCalendarView.makeSelected(animated: false)
-            
-        }
     }
     
     func removeSelectionIfNeeded(apCalendarDayView:APCalendarDayView) -> Void {
@@ -204,7 +194,6 @@ class APCalendarView: UIView {
                     self.aPCalendarSelectedView!.removeSelection(animated: true)
                 }
                 
-                self.aPCalendarMonth.selectedDate = nil
                 self.longPressFirstDayView = selectedDayView
                 selectedDayView.addToMultiSelection()
             } else if sender.state == .changed {
@@ -332,17 +321,11 @@ extension APCalendarView:APCalendarDayViewDelegate
 {
     func dayButtonTapped(dayView: APCalendarDayView) {
         
-        // assign selected date to model
-        // next time the model is used, set the selected date
-        self.aPCalendarMonth.selectedDate = dayView.currentDateComponents
-        
         if self.aPCalendarSelectedView != nil {
             self.aPCalendarSelectedView.removeSelection(animated: true)
         }
         
         self.aPCalendarSelectedView = dayView
-        
-        NotificationCenter.default.post(name: kSelectedDateChanged, object: self, userInfo: [kCalendarMonthViewKey:self.aPCalendarMonth])
     }
     
 }

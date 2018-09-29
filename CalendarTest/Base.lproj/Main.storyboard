@@ -4255,8 +4255,15 @@
                                     <outlet property="view3Leading" destination="GFU-9E-Iw1" id="WZz-Cn-c16"/>
                                 </connections>
                             </scrollView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wq4-ML-DW9" userLabel="seperatorView">
+                                <rect key="frame" x="0.0" y="364" width="375" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="P1O-BL-0S5"/>
+                                </constraints>
+                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj5-Us-YNf">
-                                <rect key="frame" x="0.0" y="364" width="375" height="303"/>
+                                <rect key="frame" x="0.0" y="365" width="375" height="302"/>
                                 <connections>
                                     <segue destination="mqK-Hr-vVx" kind="embed" id="Gc8-D4-YtS"/>
                                 </connections>
@@ -4264,19 +4271,23 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wq4-ML-DW9" secondAttribute="trailing" id="0Ic-WW-wDb"/>
                             <constraint firstItem="o23-CC-xzf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="0Mw-Um-UoK"/>
-                            <constraint firstItem="dj5-Us-YNf" firstAttribute="top" secondItem="o23-CC-xzf" secondAttribute="bottom" id="3A6-iY-6K4"/>
+                            <constraint firstItem="dj5-Us-YNf" firstAttribute="top" secondItem="o23-CC-xzf" secondAttribute="bottom" constant="1" id="3A6-iY-6K4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o23-CC-xzf" secondAttribute="trailing" id="6nS-dI-eu8"/>
                             <constraint firstItem="o23-CC-xzf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CE5-Mp-vb7"/>
                             <constraint firstItem="dj5-Us-YNf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IzV-rf-Jac"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dj5-Us-YNf" secondAttribute="trailing" id="cbH-Iu-7Hl"/>
+                            <constraint firstItem="wq4-ML-DW9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dCh-VH-tNp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dj5-Us-YNf" secondAttribute="bottom" id="fkO-Yu-Xdy"/>
+                            <constraint firstItem="wq4-ML-DW9" firstAttribute="top" secondItem="o23-CC-xzf" secondAttribute="bottom" id="phd-rA-EfJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="MUc-4L-R2W"/>
                     <connections>
                         <outlet property="scrollView" destination="o23-CC-xzf" id="PRP-Mm-cF6"/>
+                        <outlet property="seperatorView" destination="wq4-ML-DW9" id="J6I-jU-VVU"/>
                         <segue destination="3xn-qH-KH8" kind="show" identifier="addEvent" id="fEI-v1-eRJ"/>
                     </connections>
                 </viewController>
@@ -4322,20 +4333,20 @@
             <objects>
                 <viewController id="mqK-Hr-vVx" customClass="APEventViewController" customModule="CalendarTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WtD-tj-uZ7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALK-Cz-bhV" customClass="APEventScrollView" customModule="CalendarTest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gJ-Zg-J9d" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="1125" height="303"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1125" height="302"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFJ-1d-M0Z" userLabel="aPEventView1" customClass="APEventView" customModule="CalendarTest" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Itn-hW-Oji">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableView>
                                                 </subviews>
@@ -4351,10 +4362,10 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-BR-NQy" userLabel="aPEventView2" customClass="APEventView" customModule="CalendarTest" customModuleProvider="target">
-                                                <rect key="frame" x="375" y="0.0" width="375" height="303"/>
+                                                <rect key="frame" x="375" y="0.0" width="375" height="302"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kNS-Xd-j4R">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableView>
                                                 </subviews>
@@ -4370,10 +4381,10 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXO-4x-tzr" userLabel="aPEventView3" customClass="APEventView" customModule="CalendarTest" customModuleProvider="target">
-                                                <rect key="frame" x="750" y="0.0" width="375" height="303"/>
+                                                <rect key="frame" x="750" y="0.0" width="375" height="302"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qhI-SK-Bpx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableView>
                                                 </subviews>
