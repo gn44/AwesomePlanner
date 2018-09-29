@@ -16,6 +16,8 @@
 		F4068EB1214AD5D500CBC2FE /* CalendarTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068EB0214AD5D500CBC2FE /* CalendarTestTests.swift */; };
 		F4068EBC214AD5D500CBC2FE /* CalendarTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068EBB214AD5D500CBC2FE /* CalendarTestUITests.swift */; };
 		F4068ED3214E68AB00CBC2FE /* APCalendarVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068ED2214E68AA00CBC2FE /* APCalendarVariables.swift */; };
+		F449F613215F87D60084310F /* APCalendarDayNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449F612215F87D60084310F /* APCalendarDayNamesView.swift */; };
+		F449F615215F87E80084310F /* APCalendarDayNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449F614215F87E80084310F /* APCalendarDayNameView.swift */; };
 		F45085E02156D01900F3C3F0 /* APConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45085DF2156D01900F3C3F0 /* APConstants.swift */; };
 		F45085E22156D77400F3C3F0 /* APCalendarMonthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45085E12156D77400F3C3F0 /* APCalendarMonthCache.swift */; };
 		F4F1AC402151802C0024DF3B /* APCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1AC3F2151802C0024DF3B /* APCalendarView.swift */; };
@@ -58,6 +60,8 @@
 		F4068EBB214AD5D500CBC2FE /* CalendarTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTestUITests.swift; sourceTree = "<group>"; };
 		F4068EBD214AD5D500CBC2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4068ED2214E68AA00CBC2FE /* APCalendarVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarVariables.swift; sourceTree = "<group>"; };
+		F449F612215F87D60084310F /* APCalendarDayNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarDayNamesView.swift; sourceTree = "<group>"; };
+		F449F614215F87E80084310F /* APCalendarDayNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarDayNameView.swift; sourceTree = "<group>"; };
 		F45085DF2156D01900F3C3F0 /* APConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APConstants.swift; sourceTree = "<group>"; };
 		F45085E12156D77400F3C3F0 /* APCalendarMonthCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarMonthCache.swift; sourceTree = "<group>"; };
 		F4F1AC3F2151802C0024DF3B /* APCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarView.swift; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				F4F1AC3F2151802C0024DF3B /* APCalendarView.swift */,
 				F4F1AC4321518B470024DF3B /* APCalendarScrollView.swift */,
 				F4F1AC41215180900024DF3B /* APCalendarDayView.swift */,
+				F449F612215F87D60084310F /* APCalendarDayNamesView.swift */,
+				F449F614215F87E80084310F /* APCalendarDayNameView.swift */,
 			);
 			path = APCalendarViews;
 			sourceTree = "<group>";
@@ -306,8 +312,10 @@
 				F4F1AC4421518B470024DF3B /* APCalendarScrollView.swift in Sources */,
 				F4F1AC492152D8E50024DF3B /* APCalendarMonth.swift in Sources */,
 				F45085E02156D01900F3C3F0 /* APConstants.swift in Sources */,
+				F449F613215F87D60084310F /* APCalendarDayNamesView.swift in Sources */,
 				F4068E99214AD5D400CBC2FE /* AppDelegate.swift in Sources */,
 				F4068EA1214AD5D400CBC2FE /* CalendarTest.xcdatamodeld in Sources */,
+				F449F615215F87E80084310F /* APCalendarDayNameView.swift in Sources */,
 				F4068ED3214E68AB00CBC2FE /* APCalendarVariables.swift in Sources */,
 				F45085E22156D77400F3C3F0 /* APCalendarMonthCache.swift in Sources */,
 			);
