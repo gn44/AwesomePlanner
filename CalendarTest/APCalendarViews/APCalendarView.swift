@@ -199,11 +199,20 @@ class APCalendarView: UIView {
                 guard selectedDayView.dayStatus == .current else {
                     return
                 }
+                
+                if self.aPCalendarSelectedView != nil {
+                    self.aPCalendarSelectedView!.removeSelection(animated: true)
+                }
+                
+                self.aPCalendarMonth.selectedDate = nil
                 self.longPressFirstDayView = selectedDayView
                 selectedDayView.addToMultiSelection()
             } else if sender.state == .changed {
                 
                 if self.longPressFirstDayView == nil {
+                    guard selectedDayView.dayStatus == .current else {
+                        return
+                    }
                     self.longPressFirstDayView = selectedDayView
                 }
                 
