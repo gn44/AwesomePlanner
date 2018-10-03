@@ -10,5 +10,8 @@ import UIKit
 
 let kSelectedDateChanged:Notification.Name = Notification.Name(rawValue: "APSelecetdDateChanged")
 
-let kCalendarViewKey = "APCalendarDayViewKey"
+let kDifferentMonthTapped:Notification.Name = Notification.Name(rawValue: "APDifferentMonthTapped")
+
+let kCalendarDayViewKey = "APCalendarDayViewKey"
 let kCalendarMonthViewKey = "APCalendarMonthViewKey"
+let kDateComponents = "APDateComponents"

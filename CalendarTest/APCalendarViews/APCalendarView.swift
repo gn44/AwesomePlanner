@@ -129,7 +129,8 @@ class APCalendarView: UIView {
         
         // set first of the month
         var components = apMonth.components
-        components?.day = 0
+        components!.month = components!.month! - 1
+        components?.day = apMonth.lastMonthDayCount - apMonth.startWeekDay + 2
         
         // color last months days is gray and set their numbers
         for i:Int in 0...apMonth.startWeekDay - 1
@@ -137,8 +138,13 @@ class APCalendarView: UIView {
             let apCalendarView = aPCalenderDayViews[i]
             apCalendarView.dayStatus = .previous
             apCalendarView.dayLabel.textColor = UIColor.lightGray
+            apCalendarView.currentDateComponents = components
+            components!.day = components!.day! + 1
             apCalendarView.dayLabel.text = String(apMonth.lastMonthDayCount - apMonth.startWeekDay + i + 2)
         }
+        
+        components!.month = components!.month! + 1
+        components?.day = 0
         
         // fill days with sequential numbers
         var dayNumber:Int = 1
@@ -154,6 +160,9 @@ class APCalendarView: UIView {
             self.removeSelectionIfNeeded(apCalendarDayView: apCalendarView)
         }
         
+        components!.month = components!.month! + 1
+        components?.day = 0
+        
         // fill the rest with the next month
         var nextMonthDayNumber = 1
         for i:Int in apMonth.dayCount + apMonth.startWeekDay - 1...aPCalenderDayViews.count - 1
@@ -162,6 +171,10 @@ class APCalendarView: UIView {
             apCalendarView.dayStatus = .next
             apCalendarView.dayLabel.textColor = UIColor.lightGray
             apCalendarView.dayLabel.text = String(nextMonthDayNumber)
+            
+            components!.day = components!.day! + 1
+            apCalendarView.currentDateComponents = components
+            
             nextMonthDayNumber += 1
         }
     }

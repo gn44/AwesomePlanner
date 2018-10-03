@@ -52,6 +52,8 @@ class APCalendarDayView: UIView {
         delegate?.dayButtonTapped(dayView: self)
         if dayStatus == .current {
             self.makeSelected(animated: true)
+        } else {
+            NotificationCenter.default.post(name: kDifferentMonthTapped, object: self, userInfo: [kCalendarDayViewKey:self])
         }
     }
     

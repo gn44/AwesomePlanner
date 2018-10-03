@@ -22,3 +22,6 @@ struct Colors {
 
 let mainColor:UIColor = Colors.green
 let mainTextColor:UIColor = UIColor.white
+
+
+let eventAdditionBackgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)

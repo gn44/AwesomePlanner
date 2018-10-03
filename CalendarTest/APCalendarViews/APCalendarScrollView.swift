@@ -48,6 +48,9 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
         super.didMoveToSuperview()
         superView = self.superview
         self.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(differentMonthTapped), name: kDifferentMonthTapped, object: nil)
+        
     }
     
     
@@ -174,4 +177,22 @@ class APCalendarScrollView: UIScrollView,UIScrollViewDelegate {
         self.updatePositionsWithScrollView(scrollView: scrollView)
     }
     
+    
+    //MARK: Notifications
+    
+    @objc func differentMonthTapped(notification:Notification) -> Void {
+        
+        guard let aPCalendarDayView:APCalendarDayView =  notification.userInfo![kCalendarDayViewKey] as? APCalendarDayView else {
+            return
+        }
+        
+        switch aPCalendarDayView.dayStatus {
+        case .previous:
+            NSLog("previous", "")
+        case .next:
+            NSLog("next", "")
+        default:
+            NSLog("nothing", "")
+        }
+    }
 }

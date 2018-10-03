@@ -4302,13 +4302,154 @@
                     <view key="view" contentMode="scaleToFill" id="8pG-hV-DGt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.83375297879999999" green="0.92119683159999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gLg-k1-6V9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptyCell" rowHeight="44" id="3Dk-EN-gFI" userLabel="Emptycell" customClass="APEventEmptyTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Dk-EN-gFI" id="pjk-ad-cqI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="APEventAdditionTextInputCellReuseIdentifier" rowHeight="60" id="Dhp-dl-eux" customClass="APEventAdditionTextInputTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dhp-dl-eux" id="Kow-m0-g0P">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q7F-cg-3UN">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="59.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Q7F-cg-3UN" firstAttribute="leading" secondItem="Kow-m0-g0P" secondAttribute="leading" constant="15" id="A2Q-ls-vrt"/>
+                                                <constraint firstItem="Q7F-cg-3UN" firstAttribute="top" secondItem="Kow-m0-g0P" secondAttribute="top" id="HH5-x3-Y6F"/>
+                                                <constraint firstItem="Q7F-cg-3UN" firstAttribute="centerY" secondItem="Kow-m0-g0P" secondAttribute="centerY" id="Myb-j0-1ep"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q7F-cg-3UN" secondAttribute="trailing" constant="15" id="Rxn-mk-QqB"/>
+                                                <constraint firstAttribute="bottom" secondItem="Q7F-cg-3UN" secondAttribute="bottom" id="UgG-Bj-JR5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleTextField" destination="Q7F-cg-3UN" id="761-w7-aeB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="APEventAdditionClosureCellReuseIdentifier" rowHeight="60" id="CBC-uA-5D3" customClass="APEventAdditionClosureTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="132" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CBC-uA-5D3" id="W5c-ZW-ENT">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5V-wN-4OS">
+                                                    <rect key="frame" x="15" y="19.5" width="33.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-ca-5Sy" userLabel="Subtitle">
+                                                    <rect key="frame" x="301" y="19.5" width="59" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bnI-ca-5Sy" firstAttribute="centerY" secondItem="W5c-ZW-ENT" secondAttribute="centerY" id="51w-EI-cYL"/>
+                                                <constraint firstAttribute="trailing" secondItem="bnI-ca-5Sy" secondAttribute="trailing" constant="15" id="Ocn-Ai-kS5"/>
+                                                <constraint firstItem="q5V-wN-4OS" firstAttribute="centerY" secondItem="W5c-ZW-ENT" secondAttribute="centerY" id="dE9-sR-LTr"/>
+                                                <constraint firstItem="q5V-wN-4OS" firstAttribute="leading" secondItem="W5c-ZW-ENT" secondAttribute="leading" constant="15" id="zcu-Ps-LJ3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="bnI-ca-5Sy" id="0BF-cN-6kj"/>
+                                            <outlet property="titleLabel" destination="q5V-wN-4OS" id="igF-8m-8Ps"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="APEventDatePickerCellReuseIdentifier" rowHeight="253" id="DSc-C3-dw6" customClass="APEventDatePickerTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="192" width="375" height="253"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DSc-C3-dw6" id="cOb-ZC-MWZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="252.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="6sU-Zr-vwv">
+                                                    <rect key="frame" x="27.5" y="18.5" width="320" height="216"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="560276295.24460196">
+                                                        <!--2018-10-03 16:18:15 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6sU-Zr-vwv" firstAttribute="centerY" secondItem="cOb-ZC-MWZ" secondAttribute="centerY" id="cYF-vf-xX2"/>
+                                                <constraint firstItem="6sU-Zr-vwv" firstAttribute="centerX" secondItem="cOb-ZC-MWZ" secondAttribute="centerX" id="k0j-IC-U6w"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="datePicker" destination="6sU-Zr-vwv" id="Nmd-d1-zcC"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="APEventAdditionCheckmarkCellReuseIdentifier" rowHeight="60" id="4jm-xy-bnn" customClass="APEventAdditionCheckmarkTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="445" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4jm-xy-bnn" id="Agt-nu-Ukc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All - day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOA-Mj-3fL">
+                                                    <rect key="frame" x="15" y="19.5" width="63" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CmP-wc-TEJ">
+                                                    <rect key="frame" x="311" y="14.5" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.83375297879999999" green="0.92119683159999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VOA-Mj-3fL" firstAttribute="centerY" secondItem="Agt-nu-Ukc" secondAttribute="centerY" id="0OX-og-RdA"/>
+                                                <constraint firstItem="CmP-wc-TEJ" firstAttribute="centerY" secondItem="Agt-nu-Ukc" secondAttribute="centerY" id="6iM-pb-WQf"/>
+                                                <constraint firstAttribute="trailing" secondItem="CmP-wc-TEJ" secondAttribute="trailing" constant="15" id="FjS-aK-w7t"/>
+                                                <constraint firstItem="VOA-Mj-3fL" firstAttribute="leading" secondItem="Agt-nu-Ukc" secondAttribute="leading" constant="15" id="wYo-6r-dDV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="optionSwitch" destination="CmP-wc-TEJ" id="VLg-ym-3wX"/>
+                                            <outlet property="titleLabel" destination="VOA-Mj-3fL" id="Ox3-36-KNV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3xn-qH-KH8" id="aDu-vb-aq4"/>
+                                    <outlet property="delegate" destination="3xn-qH-KH8" id="ZT5-DQ-WQw"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="g5g-to-mrT" firstAttribute="trailing" secondItem="gLg-k1-6V9" secondAttribute="trailing" id="EKR-cr-65b"/>
+                            <constraint firstItem="g5g-to-mrT" firstAttribute="bottom" secondItem="gLg-k1-6V9" secondAttribute="bottom" id="VsJ-wd-Zay"/>
+                            <constraint firstItem="gLg-k1-6V9" firstAttribute="leading" secondItem="g5g-to-mrT" secondAttribute="leading" id="bNw-nh-V6h"/>
+                            <constraint firstItem="gLg-k1-6V9" firstAttribute="top" secondItem="g5g-to-mrT" secondAttribute="top" id="gXL-dd-cnh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="g5g-to-mrT"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="gLg-k1-6V9" id="UWX-XW-pnN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npK-Ek-9Ic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="787"/>
+            <point key="canvasLocation" x="1917.5999999999999" y="786.65667166416802"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="11y-WA-209">
@@ -4442,6 +4583,7 @@
                             <constraint firstAttribute="bottom" secondItem="ALK-Cz-bhV" secondAttribute="bottom" id="g0O-3K-7f6"/>
                             <constraint firstAttribute="trailing" secondItem="ALK-Cz-bhV" secondAttribute="trailing" id="z6x-sn-aLr"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="2LE-M2-snm"/>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="ALK-Cz-bhV" id="tZv-uo-krc"/>
