@@ -4342,11 +4342,11 @@
                                             <outlet property="titleTextField" destination="Q7F-cg-3UN" id="761-w7-aeB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="APEventAdditionClosureCellReuseIdentifier" rowHeight="60" id="CBC-uA-5D3" customClass="APEventAdditionClosureTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="APEventAdditionClosureCellReuseIdentifier" rowHeight="60" id="CBC-uA-5D3" customClass="APEventAdditionClosureTableViewCell" customModule="CalendarTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="132" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CBC-uA-5D3" id="W5c-ZW-ENT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5V-wN-4OS">
@@ -4356,7 +4356,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-ca-5Sy" userLabel="Subtitle">
-                                                    <rect key="frame" x="301" y="19.5" width="59" height="21"/>
+                                                    <rect key="frame" x="283" y="19.5" width="59" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -4364,7 +4364,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bnI-ca-5Sy" firstAttribute="centerY" secondItem="W5c-ZW-ENT" secondAttribute="centerY" id="51w-EI-cYL"/>
-                                                <constraint firstAttribute="trailing" secondItem="bnI-ca-5Sy" secondAttribute="trailing" constant="15" id="Ocn-Ai-kS5"/>
+                                                <constraint firstAttribute="trailing" secondItem="bnI-ca-5Sy" secondAttribute="trailing" id="Ocn-Ai-kS5"/>
                                                 <constraint firstItem="q5V-wN-4OS" firstAttribute="centerY" secondItem="W5c-ZW-ENT" secondAttribute="centerY" id="dE9-sR-LTr"/>
                                                 <constraint firstItem="q5V-wN-4OS" firstAttribute="leading" secondItem="W5c-ZW-ENT" secondAttribute="leading" constant="15" id="zcu-Ps-LJ3"/>
                                             </constraints>
@@ -4374,8 +4374,39 @@
                                             <outlet property="titleLabel" destination="q5V-wN-4OS" id="igF-8m-8Ps"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="APEventAdditionSubtitleCellReuseIdentifier" rowHeight="60" id="qkF-GI-mfD" customClass="APEventAdditionSubtitleTableViewCell" customModule="CalendarTest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="192" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qkF-GI-mfD" id="RaZ-u9-D5o">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUH-Pd-JnW">
+                                                    <rect key="frame" x="15" y="19.5" width="33.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jk2-cZ-r8P" userLabel="Subtitle">
+                                                    <rect key="frame" x="301" y="19.5" width="59" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="jk2-cZ-r8P" secondAttribute="trailing" constant="15" id="51q-1Q-5JK"/>
+                                                <constraint firstItem="YUH-Pd-JnW" firstAttribute="centerY" secondItem="RaZ-u9-D5o" secondAttribute="centerY" id="ecp-22-EKL"/>
+                                                <constraint firstItem="YUH-Pd-JnW" firstAttribute="leading" secondItem="RaZ-u9-D5o" secondAttribute="leading" constant="15" id="tK7-5R-u2e"/>
+                                                <constraint firstItem="jk2-cZ-r8P" firstAttribute="centerY" secondItem="RaZ-u9-D5o" secondAttribute="centerY" id="zRS-UR-J6W"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="jk2-cZ-r8P" id="1it-7O-49i"/>
+                                            <outlet property="titleLabel" destination="YUH-Pd-JnW" id="fLI-QM-eFp"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="APEventDatePickerCellReuseIdentifier" rowHeight="253" id="DSc-C3-dw6" customClass="APEventDatePickerTableViewCell" customModule="CalendarTest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="192" width="375" height="253"/>
+                                        <rect key="frame" x="0.0" y="252" width="375" height="253"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DSc-C3-dw6" id="cOb-ZC-MWZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="252.5"/>
@@ -4398,7 +4429,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="APEventAdditionCheckmarkCellReuseIdentifier" rowHeight="60" id="4jm-xy-bnn" customClass="APEventAdditionCheckmarkTableViewCell" customModule="CalendarTest" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="445" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="505" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4jm-xy-bnn" id="Agt-nu-Ukc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>

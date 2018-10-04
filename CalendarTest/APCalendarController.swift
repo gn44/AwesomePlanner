@@ -35,9 +35,7 @@ class APCalendarViewController: UIViewController {
                 NSLocalizedString("Sunday", comment: "")]
     
     let dayCountInMonths = [31,28,31,30,31,30,31,31,30,31,30,31]
-    
-    let firstDayDateFormatter:DateFormatter = DateFormatter.init()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -28,10 +28,20 @@ class APEventAdditionViewController: UIViewController {
     
     public var startDate:Date!
     
+    public var endDate:Date!
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        if startDate == nil {
+            startDate = apCalendar.date(bySettingHour: 23, minute: 0, second: 0, of: Date())
+            
+            endDate = apCalendar.date(byAdding: .hour, value: 1, to: startDate)
+        }
+        
+        self.title = NSLocalizedString("New event", comment: "")
         
         tableView.tableFooterView = UIView.init()
         
@@ -60,9 +70,11 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
         case .daily:
             cellIdentifier = APEventAdditionCheckmarkTableViewCell.reuseIdentifier()
             break
-        case .start, .end,.repeats,.alert:
-            cellIdentifier = APEventAdditionClosureTableViewCell.reuseIdentifier()
+        case .start, .end:
+            cellIdentifier = APEventAdditionSubtitleTableViewCell.reuseIdentifier()
             break
+        case .alert,.repeats:
+            cellIdentifier = APEventAdditionClosureTableViewCell.reuseIdentifier()
         case .empty:
             cellIdentifier = "EmptyCell"
             
@@ -94,6 +106,7 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
             }
         }
         
+        
         switch cellType {
         case .title:
             let cell:APEventAdditionTextInputTableViewCell = cell as! APEventAdditionTextInputTableViewCell
@@ -108,15 +121,16 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
             cell.titleLabel.text = NSLocalizedString("All-day", comment: "")
             
         case .start,.end:
-            let cell:APEventAdditionClosureTableViewCell = cell as! APEventAdditionClosureTableViewCell
+            let cell:APEventAdditionSubtitleTableViewCell = cell as! APEventAdditionSubtitleTableViewCell
             if cellType == .start {
                 
                 cell.titleLabel.text = NSLocalizedString("Starts", comment: "")
+                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationDateFormatter.string(from: startDate)
             } else {
                 
                 cell.titleLabel.text = NSLocalizedString("Ends", comment: "")
+                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationHourFormatter.string(from: endDate)
             }
-            cell.subtitleLabel.text = ""
             
         case .repeats,.alert:
             let cell:APEventAdditionClosureTableViewCell = cell as! APEventAdditionClosureTableViewCell
