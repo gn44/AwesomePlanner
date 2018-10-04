@@ -22,13 +22,16 @@ class APEventAdditionViewController: UIViewController {
         case alert
         case url
         case notes
+        case datePicker
     }
     
     var dataSource = [APEventCreationCellTypes]()
     
     public var startDate:Date!
-    
     public var endDate:Date!
+    
+    var startOpened:Bool = false
+    var endOpened:Bool = false
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -47,6 +50,28 @@ class APEventAdditionViewController: UIViewController {
         
         dataSource = [.empty,.title,.location,.empty,.daily,.start,.end,.repeats,.empty,.alert,.empty,.url]
         
+    }
+    
+    
+    func addDatePickerAfterIndexPath(indexPath:IndexPath) -> Void {
+        let index = indexPath.row + 1
+        
+        dataSource .insert(.datePicker, at: index)
+        
+        self.tableView.beginUpdates()
+        self.tableView .insertRows(at: [IndexPath(row: index, section: indexPath.section)], with: UITableViewRowAnimation.fade)
+        self.tableView.endUpdates()
+        
+    }
+    
+    func removeDatePickerAfterIndexPath(indexPath:IndexPath) -> Void {
+        
+        let index = indexPath.row + 1
+        dataSource.remove(at: index)
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: UITableViewRowAnimation.fade)
+        self.tableView.endUpdates()
     }
 }
 
@@ -77,6 +102,8 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
             cellIdentifier = APEventAdditionClosureTableViewCell.reuseIdentifier()
         case .empty:
             cellIdentifier = "EmptyCell"
+        case .datePicker:
+            cellIdentifier = APEventDatePickerTableViewCell.reuseIdentifier()
             
         default:
             cellIdentifier = ""
@@ -119,6 +146,8 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
         case .daily:
             let cell:APEventAdditionCheckmarkTableViewCell = cell as! APEventAdditionCheckmarkTableViewCell
             cell.titleLabel.text = NSLocalizedString("All-day", comment: "")
+            cell.optionSwitch.onTintColor = Colors.lighterGreen
+            cell.optionSwitch.tintColor = Colors.lighterGreen
             
         case .start,.end:
             let cell:APEventAdditionSubtitleTableViewCell = cell as! APEventAdditionSubtitleTableViewCell
@@ -155,11 +184,48 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        let cellType = dataSource[indexPath.row]
         if indexPath.row == 0 {
             return 22
         }
         
+        if cellType == .datePicker
+        {
+            return 216
+        }
+        
+        
         return 44
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cellType = dataSource[indexPath.row]
+        
+        self.tableView .deselectRow(at: indexPath, animated: true)
+        
+        if cellType == .start {
+            if self.startOpened {
+                
+                self.startOpened = false
+                self.removeDatePickerAfterIndexPath(indexPath: indexPath)
+            } else {
+                
+                self.startOpened = true
+                self.addDatePickerAfterIndexPath(indexPath: indexPath)
+            }
+        } else if cellType == .end {
+            
+            if self.endOpened {
+                
+                self.endOpened = false
+                self.removeDatePickerAfterIndexPath(indexPath: indexPath)
+            } else {
+                self.endOpened = true
+                self.addDatePickerAfterIndexPath(indexPath: indexPath)
+            }
+        }
     }
     
     
