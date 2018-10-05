@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class APEventAdditionViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class APEventAdditionViewController: UIViewController {
         case empty = 0
         case title
         case location
+        case locationResult
         case daily
         case start
         case end
@@ -25,7 +27,9 @@ class APEventAdditionViewController: UIViewController {
         case datePicker
     }
     
-    var dataSource = [APEventCreationCellTypes]()
+    var dataSource = [[APEventCreationCellTypes]]()
+    var locationDataSource = [MKMapItem]()
+    let locationRowSection = 1
     
     public var startDate:Date!
     public var endDate:Date!
@@ -33,10 +37,14 @@ class APEventAdditionViewController: UIViewController {
     var startOpened:Bool = false
     var endOpened:Bool = false
     
+    let locationSearcher = APLocationSearcher.init()
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        locationSearcher.delegate = self
         
         if startDate == nil {
             startDate = apCalendar.date(bySettingHour: 23, minute: 0, second: 0, of: Date())
@@ -48,15 +56,49 @@ class APEventAdditionViewController: UIViewController {
         
         tableView.tableFooterView = UIView.init()
         
-        dataSource = [.empty,.title,.location,.empty,.daily,.start,.end,.repeats,.empty,.alert,.empty,.url]
+        dataSource = [[.empty,.title,.location],[.empty,.daily,.start,.end,.repeats,.empty,.alert,.empty,.url]]
         
     }
     
+    // MARK: cell addition/removal
+    
+    func refreshLocationResultsCell() -> Void {
+        
+        let locationSection = dataSource[locationRowSection]
+        
+        let anyIndex = Int(arc4random_uniform(UInt32(locationSection.count)))
+        let anyLocation = locationSection[anyIndex]
+        
+        let locationResultsArray = Array<APEventCreationCellTypes>(repeating:.locationResult , count: locationDataSource.count)
+        
+        if anyLocation != .locationResult
+        {
+            // this section doesn't contain only location results we must add location section
+            dataSource .insert(locationResultsArray, at: locationRowSection)
+            
+            self.tableView.beginUpdates()
+            self.tableView.insertSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.fade)
+            self.tableView.endUpdates()
+        } else {
+            
+            dataSource.remove(at: locationRowSection)
+            dataSource .insert(locationResultsArray, at: locationRowSection)
+            self.tableView.beginUpdates()
+            self.tableView.deleteSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.none)
+            self.tableView.insertSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.fade)
+            self.tableView.endUpdates()
+            // remove existing section and
+        }
+    }
     
     func addDatePickerAfterIndexPath(indexPath:IndexPath) -> Void {
         let index = indexPath.row + 1
         
-        dataSource .insert(.datePicker, at: index)
+        var elements = dataSource[indexPath.section]
+        
+        elements .insert(.datePicker, at: index)
+        
+        dataSource[indexPath.section] = elements
         
         self.tableView.beginUpdates()
         self.tableView .insertRows(at: [IndexPath(row: index, section: indexPath.section)], with: UITableViewRowAnimation.fade)
@@ -65,9 +107,13 @@ class APEventAdditionViewController: UIViewController {
     }
     
     func removeDatePickerAfterIndexPath(indexPath:IndexPath) -> Void {
+    
+        var elements = dataSource[indexPath.section]
         
         let index = indexPath.row + 1
-        dataSource.remove(at: index)
+        elements.remove(at: index)
+        
+        dataSource[indexPath.section] = elements
         
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: UITableViewRowAnimation.fade)
@@ -79,18 +125,27 @@ class APEventAdditionViewController: UIViewController {
 
 extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSource
 {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let elements = dataSource[section]
+        
+        return elements.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = dataSource[indexPath.row]
+        let elements = dataSource[indexPath.section]
+        let cellType = elements[indexPath.row]
         
         var cellIdentifier = ""
         
         switch cellType {
         case .title,.location,.url:
             cellIdentifier = APEventAdditionTextInputTableViewCell.reuseIdentifier()
+            break
+        case .locationResult:
+            cellIdentifier = APLocationTableViewCell.reuseIdentifier()
             break
         case .daily:
             cellIdentifier = APEventAdditionCheckmarkTableViewCell.reuseIdentifier()
@@ -117,14 +172,16 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellType = dataSource[indexPath.row]
+        
+        let elements = dataSource[indexPath.section]
+        let cellType = elements[indexPath.row]
         
         if cellType == .empty {
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
         } else {
-            if dataSource.count > indexPath.row + 1
+            if elements.count > indexPath.row + 1
             {
-                let nextCellType = dataSource[indexPath.row + 1]
+                let nextCellType = elements[indexPath.row + 1]
                 if nextCellType == .empty {
                     cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
                 }
@@ -142,6 +199,12 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
         case .location:
             let cell:APEventAdditionTextInputTableViewCell = cell as! APEventAdditionTextInputTableViewCell
             cell.titleTextField.placeholder = NSLocalizedString("Location", comment: "")
+            cell.titleTextField.delegate = self.locationSearcher
+            
+        case .locationResult:
+            let cell:APLocationTableViewCell = cell as! APLocationTableViewCell
+            let mapItem:MKMapItem = locationDataSource[indexPath.row]
+            cell.titleLabel.text = mapItem.name
             
         case .daily:
             let cell:APEventAdditionCheckmarkTableViewCell = cell as! APEventAdditionCheckmarkTableViewCell
@@ -184,8 +247,10 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let cellType = dataSource[indexPath.row]
-        if indexPath.row == 0 {
+        let elements = dataSource[indexPath.section]
+        let cellType = elements[indexPath.row]
+        
+        if indexPath.row == 0 && indexPath.section == 0 {
             return 22
         }
         
@@ -201,7 +266,8 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let cellType = dataSource[indexPath.row]
+        let elements = dataSource[indexPath.section]
+        let cellType = elements[indexPath.row]
         
         self.tableView .deselectRow(at: indexPath, animated: true)
         
@@ -228,5 +294,13 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
         }
     }
     
-    
+}
+
+extension APEventAdditionViewController:APLocationSearchResultsDelegate
+{
+    func locationSearcherDidReturnResults(results: [MKMapItem]) {
+        
+        self.locationDataSource = results
+        self.refreshLocationResultsCell()
+    }
 }
