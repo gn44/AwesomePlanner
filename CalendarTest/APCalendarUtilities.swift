@@ -39,4 +39,11 @@ class APCalendarUtilities: NSObject {
     class func shared() -> APCalendarUtilities {
         return sharedUtilities
     }
+    
+    func isDate(date:Date, inSameDayAsDate:Date) -> Bool {
+        let components1:DateComponents = apCalendar.dateComponents(in: TimeZone(abbreviation: "UTC")!, from: date)
+        let components2:DateComponents = apCalendar.dateComponents(in: TimeZone(abbreviation: "UTC")!, from: inSameDayAsDate)
+        
+        return components1.day == components2.day
+    }
 }

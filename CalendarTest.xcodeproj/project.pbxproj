@@ -38,6 +38,7 @@
 		F45085E22156D77400F3C3F0 /* APCalendarMonthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45085E12156D77400F3C3F0 /* APCalendarMonthCache.swift */; };
 		F47A917621669132003A99B8 /* APEventAdditionSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47A917521669132003A99B8 /* APEventAdditionSubtitleTableViewCell.swift */; };
 		F47A917921669B14003A99B8 /* APLocationSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47A917821669B14003A99B8 /* APLocationSearcher.swift */; };
+		F4D2AB69217655590083F8D2 /* APEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D2AB68217655590083F8D2 /* APEvent.swift */; };
 		F4F1AC402151802C0024DF3B /* APCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1AC3F2151802C0024DF3B /* APCalendarView.swift */; };
 		F4F1AC42215180900024DF3B /* APCalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1AC41215180900024DF3B /* APCalendarDayView.swift */; };
 		F4F1AC4421518B470024DF3B /* APCalendarScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F1AC4321518B470024DF3B /* APCalendarScrollView.swift */; };
@@ -100,6 +101,7 @@
 		F45085E12156D77400F3C3F0 /* APCalendarMonthCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarMonthCache.swift; sourceTree = "<group>"; };
 		F47A917521669132003A99B8 /* APEventAdditionSubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APEventAdditionSubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		F47A917821669B14003A99B8 /* APLocationSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APLocationSearcher.swift; sourceTree = "<group>"; };
+		F4D2AB68217655590083F8D2 /* APEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APEvent.swift; sourceTree = "<group>"; };
 		F4F1AC3F2151802C0024DF3B /* APCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarView.swift; sourceTree = "<group>"; };
 		F4F1AC41215180900024DF3B /* APCalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarDayView.swift; sourceTree = "<group>"; };
 		F4F1AC4321518B470024DF3B /* APCalendarScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarScrollView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			children = (
 				F449F62C2163EA760084310F /* APEventAddition */,
 				F449F61E215FE4250084310F /* APEventScrollView.swift */,
+				F4D2AB68217655590083F8D2 /* APEvent.swift */,
 				F449F622215FF3700084310F /* APEventViewController.swift */,
 				F449F620215FE9FC0084310F /* APEventView.swift */,
 				F449F62821600D210084310F /* APEventTableViewCell.swift */,
@@ -403,6 +406,7 @@
 				F4F1AC492152D8E50024DF3B /* APCalendarMonth.swift in Sources */,
 				F45085E02156D01900F3C3F0 /* APConstants.swift in Sources */,
 				F449F61F215FE4250084310F /* APEventScrollView.swift in Sources */,
+				F4D2AB69217655590083F8D2 /* APEvent.swift in Sources */,
 				F449F613215F87D60084310F /* APCalendarDayNamesView.swift in Sources */,
 				F47A917621669132003A99B8 /* APEventAdditionSubtitleTableViewCell.swift in Sources */,
 				F449F617215F8F6E0084310F /* APEventAdditionViewController.swift in Sources */,

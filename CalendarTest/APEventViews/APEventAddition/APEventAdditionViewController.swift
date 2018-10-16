@@ -31,9 +31,6 @@ class APEventAdditionViewController: UIViewController {
     var locationDataSource = [APLocationResult]()
     let locationRowSection = 1
     
-    public var startDate:Date!
-    public var endDate:Date!
-    
     var startOpened:Bool = false
     var endOpened:Bool = false
     
@@ -42,10 +39,10 @@ class APEventAdditionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     // selected variables
-    
     var selectedLocationResult:APLocationResult?
+    var selectedStartDate:Date?
+    var selectedEndDate:Date?
     
     override func viewDidLoad() {
         
@@ -55,10 +52,10 @@ class APEventAdditionViewController: UIViewController {
         
         locationSearcher.delegate = self
         
-        if startDate == nil {
-            startDate = apCalendar.date(bySettingHour: 23, minute: 0, second: 0, of: Date())
+        if self.selectedStartDate == nil {
+            self.selectedStartDate = apCalendar.date(bySettingHour: 23, minute: 0, second: 0, of: Date())
             
-            endDate = apCalendar.date(byAdding: .hour, value: 1, to: startDate)
+            self.selectedEndDate = apCalendar.date(byAdding: .hour, value: 1, to: self.selectedStartDate!)
         }
         
         self.title = NSLocalizedString("New event", comment: "")
@@ -288,12 +285,34 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
             if cellType == .start {
                 
                 cell.titleLabel.text = NSLocalizedString("Starts", comment: "")
-                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationDateFormatter.string(from: startDate)
+                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationDateFormatter.string(from: self.selectedStartDate!)
             } else {
                 
                 cell.titleLabel.text = NSLocalizedString("Ends", comment: "")
-                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationHourFormatter.string(from: endDate)
+                
+                if APCalendarUtilities.shared().isDate(date: self.selectedStartDate!, inSameDayAsDate: self.selectedEndDate!) {
+                    
+                    cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationHourFormatter.string(from: self.selectedEndDate!)
+                } else {
+                    
+                cell.subtitleLabel.text = APCalendarUtilities.shared().eventCreationDateFormatter.string(from: self.selectedEndDate!)
+                }
             }
+        case .datePicker:
+            let cell:APEventDatePickerTableViewCell = cell as! APEventDatePickerTableViewCell
+            let previousCellType = elements[indexPath.row - 1]
+            
+            if previousCellType == .start {
+                
+                cell.datePicker.setDate(self.selectedStartDate!, animated: false)
+            } else {
+                
+                cell.datePicker.setDate(self.selectedEndDate!, animated: false)
+            }
+            
+            // asign datepicker type to the cell that this picker is for
+            cell.type = previousCellType
+            cell.delegate = self
             
         case .repeats,.alert:
             let cell:APEventAdditionClosureTableViewCell = cell as! APEventAdditionClosureTableViewCell
@@ -400,5 +419,35 @@ extension APEventAdditionViewController:APEventAdditionInputCellDelegate
     
     func didTapSelectionButton(cell: APEventAdditionTextInputTableViewCell) {
         //
+    }
+}
+
+extension APEventAdditionViewController:APEventDatePickerDelegate {
+    
+    func datePickerValueChanged(cell: APEventDatePickerTableViewCell, date: Date) {
+        
+        switch cell.type {
+        case .start:
+            self.selectedStartDate = date
+            break
+        case .end:
+            self.selectedEndDate = date
+            break
+        default:
+            break
+            
+        }
+        
+        // reload previous cell
+        var indexPath:IndexPath = self.tableView.indexPath(for: cell)!
+        indexPath.row -= 1
+        
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView .reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+            self.tableView.endUpdates()
+        }
+        
+        
     }
 }

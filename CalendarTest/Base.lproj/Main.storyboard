@@ -4518,6 +4518,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="560276295.24460196">
                                                         <!--2018-10-03 16:18:15 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerValueChanged:" destination="DSc-C3-dw6" eventType="valueChanged" id="t6Z-xQ-Ohp"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
