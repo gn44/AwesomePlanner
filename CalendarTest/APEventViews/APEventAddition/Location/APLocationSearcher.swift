@@ -84,15 +84,3 @@ class APLocationSearcher: NSObject {
         }
     }
 }
-
-extension APLocationSearcher:UITextFieldDelegate
-{
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        
-        self.searchLocationWithText(searchText: "airport")
-        
-        return true
-    }
-}

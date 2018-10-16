@@ -4327,7 +4327,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="345" height="59.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1i-Fp-RKB" userLabel="selectionContainerView">
                                                     <rect key="frame" x="15" y="5" width="148.5" height="50"/>

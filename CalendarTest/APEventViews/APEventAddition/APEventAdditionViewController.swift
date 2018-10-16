@@ -9,23 +9,23 @@
 import UIKit
 import MapKit
 
-class APEventAdditionViewController: UIViewController {
+enum APEventCreationCellTypes:Int
+{
+    case empty = 0
+    case title
+    case location
+    case locationResult
+    case daily
+    case start
+    case end
+    case repeats
+    case alert
+    case url
+    case notes
+    case datePicker
+}
 
-    enum APEventCreationCellTypes:Int
-    {
-        case empty = 0
-        case title
-        case location
-        case locationResult
-        case daily
-        case start
-        case end
-        case repeats
-        case alert
-        case url
-        case notes
-        case datePicker
-    }
+class APEventAdditionViewController: UIViewController {
     
     var dataSource = [[APEventCreationCellTypes]]()
     var locationDataSource = [APLocationResult]()
@@ -253,11 +253,14 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
         case .title:
             let cell:APEventAdditionTextInputTableViewCell = cell as! APEventAdditionTextInputTableViewCell
             cell.titleTextField.placeholder = NSLocalizedString("Title", comment: "")
+            cell.titleTextField.returnKeyType = UIReturnKeyType.next
+            cell.type = .title
 
         case .location:
             let cell:APEventAdditionTextInputTableViewCell = cell as! APEventAdditionTextInputTableViewCell
             cell.titleTextField.placeholder = NSLocalizedString("Location", comment: "")
-            cell.titleTextField.delegate = self.locationSearcher
+            cell.titleTextField.returnKeyType = UIReturnKeyType.search
+            cell.type = .location
             cell.delegate = self
             cell.updateLayout(apLocation: self.selectedLocationResult, animated: false)
             
@@ -382,16 +385,20 @@ extension APEventAdditionViewController:APLocationSearchResultsDelegate
 
 extension APEventAdditionViewController:APEventAdditionInputCellDelegate
 {
-    func didTapClosureButton() {
+    func textDidChange(cell: APEventAdditionTextInputTableViewCell, newText: String?) {
+        if cell.type == .location {
+            self.locationSearcher .searchLocationWithText(searchText: "airport")
+        }
+    }
+    
+    func didTapClosureButton(cell: APEventAdditionTextInputTableViewCell) {
         
         if self.selectedLocationResult != nil {
             self.selectedLocationResult = nil
         }
     }
     
-    func didTapSelectionButton() {
+    func didTapSelectionButton(cell: APEventAdditionTextInputTableViewCell) {
         //
     }
-    
-    
 }

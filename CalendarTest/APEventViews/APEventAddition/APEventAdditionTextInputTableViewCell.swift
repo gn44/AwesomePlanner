@@ -10,8 +10,9 @@ import UIKit
 
 protocol APEventAdditionInputCellDelegate: class {
     
-    func didTapClosureButton();
-    func didTapSelectionButton();
+    func didTapClosureButton(cell:APEventAdditionTextInputTableViewCell)
+    func didTapSelectionButton(cell:APEventAdditionTextInputTableViewCell)
+    func textDidChange(cell:APEventAdditionTextInputTableViewCell,newText:String?)
 }
 
 class APEventAdditionTextInputTableViewCell: UITableViewCell {
@@ -25,6 +26,7 @@ class APEventAdditionTextInputTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.titleTextField.delegate = self;
         self.updateLayout(apLocation: nil, animated: false)
         // Initialization code
     }
@@ -42,6 +44,8 @@ class APEventAdditionTextInputTableViewCell: UITableViewCell {
     var apLocation:APLocationResult?
     
     weak var delegate: APEventAdditionInputCellDelegate?
+    
+    var type:APEventCreationCellTypes = .empty
 
     
     public class func reuseIdentifier() -> String {
@@ -66,7 +70,7 @@ class APEventAdditionTextInputTableViewCell: UITableViewCell {
             self.titleTextField.text = ""
             self.updateLayout(apLocation: nil, animated: true)
             
-            self.delegate?.didTapClosureButton()
+            self.delegate?.didTapClosureButton(cell: self)
         }
         
     }
@@ -140,5 +144,16 @@ class APEventAdditionTextInputTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+}
 
+extension APEventAdditionTextInputTableViewCell:UITextFieldDelegate
+{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+                
+        self.delegate?.textDidChange(cell: self, newText: newText!)
+        
+        return true
+    }
 }
