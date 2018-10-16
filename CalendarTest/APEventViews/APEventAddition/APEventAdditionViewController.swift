@@ -28,7 +28,7 @@ class APEventAdditionViewController: UIViewController {
     }
     
     var dataSource = [[APEventCreationCellTypes]]()
-    var locationDataSource = [MKMapItem]()
+    var locationDataSource = [APLocationResult]()
     let locationRowSection = 1
     
     public var startDate:Date!
@@ -38,11 +38,20 @@ class APEventAdditionViewController: UIViewController {
     var endOpened:Bool = false
     
     let locationSearcher = APLocationSearcher.init()
+    let updateQueue:OperationQueue = OperationQueue.init()
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    // selected variables
+    
+    var selectedLocationResult:APLocationResult?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.updateQueue.maxConcurrentOperationCount = 1
         
         locationSearcher.delegate = self
         
@@ -64,30 +73,53 @@ class APEventAdditionViewController: UIViewController {
     
     func refreshLocationResultsCell() -> Void {
         
+        
         let locationSection = dataSource[locationRowSection]
+
+        if locationSection.count == 0 {
+            
+            return
+        }
         
         let anyIndex = Int(arc4random_uniform(UInt32(locationSection.count)))
         let anyLocation = locationSection[anyIndex]
         
         let locationResultsArray = Array<APEventCreationCellTypes>(repeating:.locationResult , count: locationDataSource.count)
         
+        // do not add new section if datasource is empty
         if anyLocation != .locationResult
         {
+            if self.locationDataSource.count == 0 {
+                return
+            }
+            
             // this section doesn't contain only location results we must add location section
             dataSource .insert(locationResultsArray, at: locationRowSection)
             
-            self.tableView.beginUpdates()
-            self.tableView.insertSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.fade)
-            self.tableView.endUpdates()
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                self.tableView.insertSections(IndexSet(arrayLiteral: self.locationRowSection), with: UITableViewRowAnimation.fade)
+                self.tableView.endUpdates()
+            }
         } else {
             
             dataSource.remove(at: locationRowSection)
-            dataSource .insert(locationResultsArray, at: locationRowSection)
-            self.tableView.beginUpdates()
-            self.tableView.deleteSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.none)
-            self.tableView.insertSections(IndexSet(arrayLiteral: locationRowSection), with: UITableViewRowAnimation.fade)
-            self.tableView.endUpdates()
-            // remove existing section and
+            
+            
+            DispatchQueue.main.async {
+                if self.locationDataSource.count != 0 {
+                    
+                    self.dataSource .insert(locationResultsArray, at: self.locationRowSection)
+                }
+                
+                self.tableView.beginUpdates()
+                self.tableView.deleteSections(IndexSet(arrayLiteral: self.locationRowSection), with: UITableViewRowAnimation.none)
+                
+                if self.locationDataSource.count != 0 {
+                    self.tableView.insertSections(IndexSet(arrayLiteral: self.locationRowSection), with: UITableViewRowAnimation.fade)
+                }
+                self.tableView.endUpdates()
+            }
         }
     }
     
@@ -118,6 +150,32 @@ class APEventAdditionViewController: UIViewController {
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [IndexPath(row: index, section: indexPath.section)], with: UITableViewRowAnimation.fade)
         self.tableView.endUpdates()
+    }
+    
+    func updateLocationInputCellWithLocation(apLocation:APLocationResult?) -> Void {
+        
+        if apLocation != nil {
+            
+            self.updateLocationSectionWithResults(results: [])
+        }
+        
+        guard let locationCell:APEventAdditionTextInputTableViewCell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? APEventAdditionTextInputTableViewCell else {
+            
+            return
+        }
+        
+        locationCell.updateLayout(apLocation: apLocation, animated: true)
+        
+    }
+    
+    func updateLocationSectionWithResults(results: [APLocationResult]) -> Void {
+        
+        let updateOperation = BlockOperation.init {
+            self.locationDataSource = results
+            self.refreshLocationResultsCell()
+        }
+        
+        self.updateQueue.addOperation(updateOperation)
     }
 }
 
@@ -200,11 +258,21 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
             let cell:APEventAdditionTextInputTableViewCell = cell as! APEventAdditionTextInputTableViewCell
             cell.titleTextField.placeholder = NSLocalizedString("Location", comment: "")
             cell.titleTextField.delegate = self.locationSearcher
+            cell.delegate = self
+            cell.updateLayout(apLocation: self.selectedLocationResult, animated: false)
             
         case .locationResult:
             let cell:APLocationTableViewCell = cell as! APLocationTableViewCell
-            let mapItem:MKMapItem = locationDataSource[indexPath.row]
-            cell.titleLabel.text = mapItem.name
+            let locationResult:APLocationResult = locationDataSource[indexPath.row]
+            cell.titleLabel.text = locationResult.title
+            if locationResult.subTitle.count != 0 {
+                
+                cell.subtitleLabel.isHidden = false
+                cell.subtitleLabel.text = locationResult.subTitle
+            } else {
+                
+                cell.subtitleLabel.isHidden = true
+            }
             
         case .daily:
             let cell:APEventAdditionCheckmarkTableViewCell = cell as! APEventAdditionCheckmarkTableViewCell
@@ -291,6 +359,14 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
                 self.endOpened = true
                 self.addDatePickerAfterIndexPath(indexPath: indexPath)
             }
+        } else if cellType == .locationResult {
+            
+            let selectedLocation:APLocationResult = self.locationDataSource[indexPath.row]
+            
+            self.selectedLocationResult = selectedLocation
+            self.updateLocationInputCellWithLocation(apLocation: selectedLocation)
+            
+            self.view.endEditing(true)
         }
     }
     
@@ -298,9 +374,24 @@ extension APEventAdditionViewController:UITableViewDelegate,UITableViewDataSourc
 
 extension APEventAdditionViewController:APLocationSearchResultsDelegate
 {
-    func locationSearcherDidReturnResults(results: [MKMapItem]) {
+    func locationSearcherDidReturnResults(results: [APLocationResult]) {
         
-        self.locationDataSource = results
-        self.refreshLocationResultsCell()
+        self.updateLocationSectionWithResults(results: results)
     }
+}
+
+extension APEventAdditionViewController:APEventAdditionInputCellDelegate
+{
+    func didTapClosureButton() {
+        
+        if self.selectedLocationResult != nil {
+            self.selectedLocationResult = nil
+        }
+    }
+    
+    func didTapSelectionButton() {
+        //
+    }
+    
+    
 }

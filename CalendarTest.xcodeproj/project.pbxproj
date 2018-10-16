@@ -11,13 +11,13 @@
 		F4068E9B214AD5D400CBC2FE /* APCalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068E9A214AD5D400CBC2FE /* APCalendarController.swift */; };
 		F4068E9E214AD5D400CBC2FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4068E9C214AD5D400CBC2FE /* Main.storyboard */; };
 		F4068EA1214AD5D400CBC2FE /* CalendarTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F4068E9F214AD5D400CBC2FE /* CalendarTest.xcdatamodeld */; };
-		F4068EA3214AD5D400CBC2FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4068EA2214AD5D400CBC2FE /* Assets.xcassets */; };
 		F4068EA6214AD5D400CBC2FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4068EA4214AD5D400CBC2FE /* LaunchScreen.storyboard */; };
 		F4068EB1214AD5D500CBC2FE /* CalendarTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068EB0214AD5D500CBC2FE /* CalendarTestTests.swift */; };
 		F4068EBC214AD5D500CBC2FE /* CalendarTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068EBB214AD5D500CBC2FE /* CalendarTestUITests.swift */; };
 		F4068ED3214E68AB00CBC2FE /* APCalendarVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4068ED2214E68AA00CBC2FE /* APCalendarVariables.swift */; };
 		F43CDDA12167E02400B9DD4C /* APLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43CDDA02167E02400B9DD4C /* APLocationTableViewCell.swift */; };
 		F43CDDA32167EACA00B9DD4C /* APLocationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43CDDA22167EACA00B9DD4C /* APLocationResult.swift */; };
+		F43CDDA9216E66AF00B9DD4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F43CDDA8216E66AF00B9DD4C /* Assets.xcassets */; };
 		F449F613215F87D60084310F /* APCalendarDayNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449F612215F87D60084310F /* APCalendarDayNamesView.swift */; };
 		F449F615215F87E80084310F /* APCalendarDayNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449F614215F87E80084310F /* APCalendarDayNameView.swift */; };
 		F449F617215F8F6E0084310F /* APEventAdditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F449F616215F8F6E0084310F /* APEventAdditionViewController.swift */; };
@@ -68,7 +68,6 @@
 		F4068E9A214AD5D400CBC2FE /* APCalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarController.swift; sourceTree = "<group>"; };
 		F4068E9D214AD5D400CBC2FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4068EA0214AD5D400CBC2FE /* CalendarTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalendarTest.xcdatamodel; sourceTree = "<group>"; };
-		F4068EA2214AD5D400CBC2FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4068EA5214AD5D400CBC2FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4068EA7214AD5D400CBC2FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4068EAC214AD5D400CBC2FE /* CalendarTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +79,7 @@
 		F4068ED2214E68AA00CBC2FE /* APCalendarVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarVariables.swift; sourceTree = "<group>"; };
 		F43CDDA02167E02400B9DD4C /* APLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APLocationTableViewCell.swift; sourceTree = "<group>"; };
 		F43CDDA22167EACA00B9DD4C /* APLocationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APLocationResult.swift; sourceTree = "<group>"; };
+		F43CDDA8216E66AF00B9DD4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F449F612215F87D60084310F /* APCalendarDayNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarDayNamesView.swift; sourceTree = "<group>"; };
 		F449F614215F87E80084310F /* APCalendarDayNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCalendarDayNameView.swift; sourceTree = "<group>"; };
 		F449F616215F8F6E0084310F /* APEventAdditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APEventAdditionViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 				F45085DF2156D01900F3C3F0 /* APConstants.swift */,
 				F449F618215FCF290084310F /* APColors.swift */,
 				F4068E9C214AD5D400CBC2FE /* Main.storyboard */,
-				F4068EA2214AD5D400CBC2FE /* Assets.xcassets */,
+				F43CDDA8216E66AF00B9DD4C /* Assets.xcassets */,
 				F4068EA4214AD5D400CBC2FE /* LaunchScreen.storyboard */,
 				F4068EA7214AD5D400CBC2FE /* Info.plist */,
 				F4068E9F214AD5D400CBC2FE /* CalendarTest.xcdatamodeld */,
@@ -365,8 +365,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4068EA6214AD5D400CBC2FE /* LaunchScreen.storyboard in Resources */,
-				F4068EA3214AD5D400CBC2FE /* Assets.xcassets in Resources */,
 				F4068E9E214AD5D400CBC2FE /* Main.storyboard in Resources */,
+				F43CDDA9216E66AF00B9DD4C /* Assets.xcassets in Resources */,
 				F449F62521600B650084310F /* APEventTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

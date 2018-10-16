@@ -11,32 +11,75 @@ import MapKit
 
 protocol APLocationSearchResultsDelegate: class {
     
-    func locationSearcherDidReturnResults(results:[MKMapItem])
+    func locationSearcherDidReturnResults(results:[APLocationResult])
 }
 
 class APLocationSearcher: NSObject {
     
     
+    let request = MKLocalSearchRequest()
+    var search:MKLocalSearch?
+    
+    var lastSearchedCoordinateRegion:MKCoordinateRegion?
+    
+    override init() {
+        super.init()
+        
+        search = MKLocalSearch(request: request)
+    }
+    
+    
     weak var delegate: APLocationSearchResultsDelegate?
     
+    
     func searchLocationWithText(searchText:String) -> Void {
-        let request = MKLocalSearchRequest()
+        
+        if searchText.count == 0 {
+            
+            search!.cancel()
+            self.delegate?.locationSearcherDidReturnResults(results: [])
+            return;
+        }
+        
         request.naturalLanguageQuery = searchText
         
-        //request.region = mapView.region
-        let search = MKLocalSearch(request: request)
+        if lastSearchedCoordinateRegion != nil {
+            
+            request.region = lastSearchedCoordinateRegion!
+        }
+        search?.cancel()
+        search = MKLocalSearch(request: request)
         
-        search.start { response, _ in
+        search!.start { response, _ in
             guard let response = response else {
                 return
             }
             
+            self.lastSearchedCoordinateRegion = response.boundingRegion
+            
+            var locationResults = [APLocationResult]()
+            
             for mapItem in response.mapItems
             {
-                let placeMark = mapItem.placemark
-                NSLog("mapItem", "")
+                let placeMark:MKPlacemark = mapItem.placemark
+                let locationResult:APLocationResult = APLocationResult.init()
+                var name = ""
+                var detail = ""
+                
+                if let placeMarkName = placeMark.addressDictionary?["Name"] as? String {
+                    name = placeMarkName
+                }
+                
+                if let addressList = placeMark.addressDictionary?["FormattedAddressLines"] as? [String] {
+                    detail =  addressList.joined(separator: ", ")
+                }
+                
+                locationResult.title = name;
+                locationResult.subTitle = detail
+                locationResults.append(locationResult)
             }
-            self.delegate?.locationSearcherDidReturnResults(results: response.mapItems)
+            
+            self.delegate?.locationSearcherDidReturnResults(results: locationResults)
             
         }
     }
@@ -48,7 +91,7 @@ extension APLocationSearcher:UITextFieldDelegate
         
         let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
         
-        self.searchLocationWithText(searchText: "Riga")
+        self.searchLocationWithText(searchText: "airport")
         
         return true
     }

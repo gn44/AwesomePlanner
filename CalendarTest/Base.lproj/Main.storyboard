@@ -4329,8 +4329,67 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1i-Fp-RKB" userLabel="selectionContainerView">
+                                                    <rect key="frame" x="15" y="5" width="148.5" height="50"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="15w-sq-gbf">
+                                                            <rect key="frame" x="0.0" y="4.5" width="95.5" height="41"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Riga, Latvia" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7G-sa-ZZp" userLabel="titleLabel">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLL-Ux-4qT" userLabel="subtitleLabel">
+                                                                    <rect key="frame" x="0.0" y="20.5" width="95.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </stackView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="closure" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-0s-yZV">
+                                                            <rect key="frame" x="110.5" y="18.5" width="13" height="13"/>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppp-3l-vnp" userLabel="selectionButton">
+                                                            <rect key="frame" x="0.0" y="4.5" width="95.5" height="41"/>
+                                                            <connections>
+                                                                <action selector="selectionButtonTap:" destination="Dhp-dl-eux" eventType="touchUpInside" id="fiQ-WI-AYk"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTU-7B-w4z" userLabel="closureButton">
+                                                            <rect key="frame" x="102" y="10" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="FTU-7B-w4z" secondAttribute="height" multiplier="1:1" id="T1M-Y4-6eU"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <action selector="closureButtonTap:" destination="Dhp-dl-eux" eventType="touchUpInside" id="PvB-Z7-UHW"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="FTU-7B-w4z" firstAttribute="centerY" secondItem="mBG-0s-yZV" secondAttribute="centerY" id="40Z-JM-acR"/>
+                                                        <constraint firstItem="FTU-7B-w4z" firstAttribute="top" secondItem="q1i-Fp-RKB" secondAttribute="top" constant="10" id="Apy-7U-ku0"/>
+                                                        <constraint firstItem="mBG-0s-yZV" firstAttribute="centerY" secondItem="q1i-Fp-RKB" secondAttribute="centerY" id="GJr-oh-Ty8"/>
+                                                        <constraint firstItem="Ppp-3l-vnp" firstAttribute="centerY" secondItem="15w-sq-gbf" secondAttribute="centerY" id="Hec-H5-d9j"/>
+                                                        <constraint firstItem="Ppp-3l-vnp" firstAttribute="centerX" secondItem="15w-sq-gbf" secondAttribute="centerX" id="JE7-xp-ysd"/>
+                                                        <constraint firstAttribute="bottom" secondItem="FTU-7B-w4z" secondAttribute="bottom" constant="10" id="KUw-2a-qPe"/>
+                                                        <constraint firstItem="mBG-0s-yZV" firstAttribute="leading" secondItem="15w-sq-gbf" secondAttribute="trailing" constant="15" id="YY5-nn-i1x"/>
+                                                        <constraint firstItem="15w-sq-gbf" firstAttribute="leading" secondItem="q1i-Fp-RKB" secondAttribute="leading" id="d1L-nt-m7v"/>
+                                                        <constraint firstItem="Ppp-3l-vnp" firstAttribute="width" secondItem="15w-sq-gbf" secondAttribute="width" id="jh8-xd-0x7"/>
+                                                        <constraint firstAttribute="trailing" secondItem="mBG-0s-yZV" secondAttribute="trailing" constant="25" id="pGV-k4-fkz"/>
+                                                        <constraint firstItem="FTU-7B-w4z" firstAttribute="centerX" secondItem="mBG-0s-yZV" secondAttribute="centerX" id="vam-Zg-CWt"/>
+                                                        <constraint firstItem="15w-sq-gbf" firstAttribute="centerY" secondItem="q1i-Fp-RKB" secondAttribute="centerY" id="wyV-la-ZMp"/>
+                                                        <constraint firstItem="Ppp-3l-vnp" firstAttribute="height" secondItem="15w-sq-gbf" secondAttribute="height" id="yiW-GH-CXq"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="q1i-Fp-RKB" firstAttribute="leading" secondItem="Kow-m0-g0P" secondAttribute="leading" constant="15" id="4NJ-Gi-xKI"/>
+                                                <constraint firstItem="q1i-Fp-RKB" firstAttribute="centerY" secondItem="Kow-m0-g0P" secondAttribute="centerY" id="7kT-mp-jYn"/>
                                                 <constraint firstItem="Q7F-cg-3UN" firstAttribute="leading" secondItem="Kow-m0-g0P" secondAttribute="leading" constant="15" id="A2Q-ls-vrt"/>
                                                 <constraint firstItem="Q7F-cg-3UN" firstAttribute="top" secondItem="Kow-m0-g0P" secondAttribute="top" id="HH5-x3-Y6F"/>
                                                 <constraint firstItem="Q7F-cg-3UN" firstAttribute="centerY" secondItem="Kow-m0-g0P" secondAttribute="centerY" id="Myb-j0-1ep"/>
@@ -4339,6 +4398,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="closureIconImageView" destination="mBG-0s-yZV" id="zd9-ph-1Ua"/>
+                                            <outlet property="selectionContainerView" destination="q1i-Fp-RKB" id="W3X-mM-9aW"/>
+                                            <outlet property="selectionContainerViewCenterY" destination="7kT-mp-jYn" id="JdV-8L-KJz"/>
+                                            <outlet property="selectionSubtitleLabel" destination="uLL-Ux-4qT" id="Zqn-0F-ADC"/>
+                                            <outlet property="selectionTitleLabel" destination="u7G-sa-ZZp" id="9Jt-RK-OeB"/>
                                             <outlet property="titleTextField" destination="Q7F-cg-3UN" id="761-w7-aeB"/>
                                         </connections>
                                     </tableViewCell>
@@ -4360,7 +4424,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuC-PX-1qX" userLabel="subtitleLabel">
                                                             <rect key="frame" x="0.0" y="22" width="345" height="21.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -4662,4 +4726,7 @@
             <point key="canvasLocation" x="1072.8" y="1553.9730134932536"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="closure" width="13" height="13"/>
+    </resources>
 </document>

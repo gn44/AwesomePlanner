@@ -10,6 +10,6 @@ import UIKit
 
 class APLocationResult: NSObject {
 
-    let title:String = ""
-    let subTitle:String = ""
+    var title:String = ""
+    var subTitle:String = ""
 }
